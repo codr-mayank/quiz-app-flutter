@@ -116,6 +116,7 @@ class _QuizAppState extends State<QuizApp> {
         backgroundColor: Colors.lightGreen,
       );
       Scaffold.of(context).showSnackBar(snackBar);
+      _updateQuestion();
     } else {
       final snackBar = SnackBar(
         duration: Duration(milliseconds: 500),
@@ -123,12 +124,17 @@ class _QuizAppState extends State<QuizApp> {
         backgroundColor: Colors.redAccent,
       );
       Scaffold.of(context).showSnackBar(snackBar);
+      _updateQuestion();
     }
   }
 
-  _nextQuestion() {
+  _updateQuestion() {
     setState(() {
       _currentQuestionIndex = (_currentQuestionIndex + 1) % questionBank.length;
     });
+  }
+
+  _nextQuestion() {
+    _updateQuestion();
   }
 }
