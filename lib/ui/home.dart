@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class QuizApp extends StatefulWidget {
+  @override
+  _QuizAppState createState() => _QuizAppState();
+}
+
+class _QuizAppState extends State<QuizApp> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.deepOrange,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('True Citizen Quiz'),
+        centerTitle: true,
+        backgroundColor: Colors.blueGrey,
+      ),
+      backgroundColor: Colors.indigoAccent,
+      body: Container(
+        child: Column(),
+      ),
     );
   }
 }
