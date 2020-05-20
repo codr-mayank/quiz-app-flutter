@@ -7,6 +7,8 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
+  var _currentQuestionIndex = 0;
+
   List questionBank = [
     Question.name(
         'Cyclones spin in a clockwise direction in the southern hemisphere',
@@ -58,7 +60,7 @@ class _QuizAppState extends State<QuizApp> {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    questionBank[0].questionText,
+                    questionBank[_currentQuestionIndex].questionText,
                     style: TextStyle(fontSize: 16.9, color: Colors.blueAccent),
                   ),
                 )),
@@ -68,7 +70,7 @@ class _QuizAppState extends State<QuizApp> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: () => _checkAnswer(),
+                  onPressed: () => _checkAnswer(true),
                   color: Colors.lightBlue.shade900,
                   child: Text(
                     'TRUE',
@@ -76,7 +78,7 @@ class _QuizAppState extends State<QuizApp> {
                   ),
                 ),
                 RaisedButton(
-                  onPressed: () => _checkAnswer(),
+                  onPressed: () => _checkAnswer(false),
                   color: Colors.lightBlue.shade900,
                   child: Text(
                     'FALSE',
@@ -100,6 +102,17 @@ class _QuizAppState extends State<QuizApp> {
     );
   }
 
-  _checkAnswer() {}
-  _nextQuestion() {}
+  _checkAnswer(bool userChoice) {
+    if (userChoice == questionBank[_currentQuestionIndex].isCorrect) {
+      debugPrint('Yes Correct!');
+    } else {
+      debugPrint('Incorrect!');
+    }
+  }
+
+  _nextQuestion() {
+    setState(() {
+      _currentQuestionIndex = (_currentQuestionIndex + 1) % questionBank.length;
+    });
+  }
 }
