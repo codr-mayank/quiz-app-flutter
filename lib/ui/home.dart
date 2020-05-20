@@ -14,9 +14,13 @@ class _QuizAppState extends State<QuizApp> {
         centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
-      backgroundColor: Colors.indigoAccent,
+      backgroundColor: Colors.lightGreenAccent,
       body: Container(
-        child: Column(),
+        child: Column(
+          children: <Widget>[
+            Image.asset('images/flag.png', width: 250, height: 180)
+          ],
+        ),
       ),
     );
   }
