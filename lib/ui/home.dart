@@ -75,6 +75,14 @@ class _QuizAppState extends State<QuizApp> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
+                    onPressed: () => _previousQuestion(),
+                    color: Colors.lightBlue.shade900,
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                  ),
+                  RaisedButton(
                     onPressed: () => _checkAnswer(true, context),
                     color: Colors.lightBlue.shade900,
                     child: Text(
@@ -126,6 +134,12 @@ class _QuizAppState extends State<QuizApp> {
       Scaffold.of(context).showSnackBar(snackBar);
       _updateQuestion();
     }
+  }
+
+  _previousQuestion() {
+    setState(() {
+      _currentQuestionIndex = (_currentQuestionIndex - 1) % questionBank.length;
+    });
   }
 
   _updateQuestion() {
