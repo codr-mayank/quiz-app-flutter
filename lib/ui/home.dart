@@ -8,7 +8,6 @@ class QuizApp extends StatefulWidget {
 
 class _QuizAppState extends State<QuizApp> {
   List questionBank = [
-    Question.name('Earth has only 1 moon as a natural satellite', true),
     Question.name(
         'Cyclones spin in a clockwise direction in the southern hemisphere',
         true),
@@ -48,7 +47,7 @@ class _QuizAppState extends State<QuizApp> {
                 child: Image.asset('images/flag.png', width: 250, height: 180)),
             Container(
               height: 120.0,
-              child: Text(questionBank[5].questionText),
+              child: Text(questionBank[0].questionText),
             ),
             Spacer(),
           ],
