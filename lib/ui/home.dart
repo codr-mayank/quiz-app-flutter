@@ -38,75 +38,91 @@ class _QuizAppState extends State<QuizApp> {
       appBar: AppBar(
         title: Text('GK Quiz'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.lightBlue,
       ),
-      backgroundColor: Colors.lightGreenAccent,
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-                child: Image.asset('images/flag.png', width: 250, height: 180)),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14.4),
-                    border: Border.all(
-                        color: Colors.blueGrey.shade400,
-                        style: BorderStyle.solid)),
-                height: 120.0,
-                child: Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    questionBank[_currentQuestionIndex].questionText,
-                    style: TextStyle(fontSize: 16.9, color: Colors.blueAccent),
-                  ),
-                )),
+      backgroundColor: Colors.yellowAccent.shade100,
+      // we use [Builder] here to use a [context] that is a descendent of [Scaffold]
+      // or else [Scaffold.of] will return null
+      body: Builder(
+        builder: (BuildContext context) => Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                  child:
+                      Image.asset('images/flag.png', width: 250, height: 180)),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14.4),
+                      border: Border.all(
+                          color: Colors.blueGrey.shade400,
+                          style: BorderStyle.solid)),
+                  height: 120.0,
+                  child: Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      questionBank[_currentQuestionIndex].questionText,
+                      style:
+                          TextStyle(fontSize: 16.9, color: Colors.blueAccent),
+                    ),
+                  )),
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: () => _checkAnswer(true),
-                  color: Colors.lightBlue.shade900,
-                  child: Text(
-                    'TRUE',
-                    style: TextStyle(color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () => _checkAnswer(true, context),
+                    color: Colors.lightBlue.shade900,
+                    child: Text(
+                      'TRUE',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-                RaisedButton(
-                  onPressed: () => _checkAnswer(false),
-                  color: Colors.lightBlue.shade900,
-                  child: Text(
-                    'FALSE',
-                    style: TextStyle(color: Colors.white),
+                  RaisedButton(
+                    onPressed: () => _checkAnswer(false, context),
+                    color: Colors.lightBlue.shade900,
+                    child: Text(
+                      'FALSE',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-                RaisedButton(
-                  onPressed: () => _nextQuestion(),
-                  color: Colors.lightBlue.shade900,
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
+                  RaisedButton(
+                    onPressed: () => _nextQuestion(),
+                    color: Colors.lightBlue.shade900,
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Spacer(),
-          ],
+                ],
+              ),
+              Spacer(),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  _checkAnswer(bool userChoice) {
+  _checkAnswer(bool userChoice, BuildContext context) {
     if (userChoice == questionBank[_currentQuestionIndex].isCorrect) {
-      debugPrint('Yes Correct!');
+      final snackBar = SnackBar(
+        duration: Duration(milliseconds: 500),
+        content: Text('Correct!'),
+        backgroundColor: Colors.lightGreen,
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     } else {
-      debugPrint('Incorrect!');
+      final snackBar = SnackBar(
+        duration: Duration(milliseconds: 500),
+        content: Text('Incorrect!'),
+        backgroundColor: Colors.redAccent,
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     }
   }
 
